@@ -21,16 +21,25 @@ const DuXing = {
       controls: [
         new ol.control.Attribution()
       ],
-      //禁止交互
-      interactions: ol.interaction.defaults({
-        altShiftDragRotate: false,
-        doubleClickZoom: false,
-        keyboard: false,
-        mouseWheelZoom: false,
-        shiftDragZoom: false,
-        dragPan: false
-      })
+      // //禁止交互(这种方式后期需要启用时比较麻烦, 需要创建交互组件)
+      // interactions: ol.interaction.defaults({
+      //   altShiftDragRotate: false,
+      //   doubleClickZoom: false,
+      //   keyboard: false,
+      //   mouseWheelZoom: false,
+      //   shiftDragZoom: false,
+      //   dragPan: false,
+      //   pinchRotate: false,
+      //   pinchZoom: false
+      // })
     });
+
+    //禁止交互
+    map.getInteractions().forEach(e => {
+      e.setActive(false);
+    });
+
+    //添加适量图层
     const vectorLayer = new ol.layer.Vector({
       source: new ol.source.Vector({
         features: []
@@ -113,13 +122,52 @@ const DuXing = {
       }
     ];
     let index = 0;
+    let minX, minY, maxX, maxY;
     const showNext = () => {
       if (index >= pointArray.length) {
+        if (pointArray.length > 0) {
+          //缩放到地点边界
+          const min = ol.proj.fromLonLat([minX, minY]);
+          const max = ol.proj.fromLonLat([maxX, maxY]);
+          const extent = [min[0], min[1], max[0], max[1]];
+          map.getView().fit(extent, {
+            size: map.getSize(),
+            padding: [360, 60, 60, 60]
+          });
+
+          //允许交互
+          map.getInteractions().forEach(e => {
+            e.setActive(true);
+          });
+        }
+
         return;
       }
 
       const fp = pointArray[index];
       index++;
+
+      //计算边界
+      if (!minX) {
+        minX = fp.geometry.coordinates[0];
+        minY = fp.geometry.coordinates[1];
+        maxX = fp.geometry.coordinates[0];
+        maxY = fp.geometry.coordinates[1];
+      } else {
+        if (minX > fp.geometry.coordinates[0]) {
+          minX = fp.geometry.coordinates[0];
+        }
+        if (minY > fp.geometry.coordinates[1]) {
+          minY = fp.geometry.coordinates[1];
+        }
+
+        if (maxX < fp.geometry.coordinates[0]) {
+          maxX = fp.geometry.coordinates[0];
+        }
+        if (maxY < fp.geometry.coordinates[1]) {
+          maxY = fp.geometry.coordinates[1];
+        }
+      }
 
       const markerElement = document.createElement('div');
       markerElement.classList.add('marker');
