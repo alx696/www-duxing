@@ -24,7 +24,6 @@ html, body {
 }
 
 body {
-  margin: 0;
   font-family: "Noto Serif CJK SC", "Noto Sans CJK SC", sans-serif;
   color: #444444;
   position: relative;
@@ -85,9 +84,220 @@ a {
   text-shadow: 1px 2px 4px black;
 }
 
+#aboutDownload {
+  height: auto;
+  padding-top: 60px;
+}
+
+#aboutDownload > header {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  padding: 1rem;
+  box-shadow: 0 6px 16px #cccccc;
+  border-bottom: 1px solid #cccccc;
+  background-color: white;
+}
+
+#aboutDownload > header > h1 {
+  flex: 1;
+}
+
+#aboutDownload > article > section {
+  margin: 3rem 1rem;
+  text-align: center;
+}
+
+@keyframes textShow {
+  from {
+    color: rgb(0, 0, 0, 0);
+  }
+
+  to {
+    color: rgb(68, 68, 68, 1);
+  }
+}
+
+@keyframes visibilityShow {
+  from {
+    visibility: hidden;
+  }
+
+  to {
+    visibility: visible;
+  }
+}
+
+#aboutDownload > article > section > h2 {
+  margin-bottom: 2rem;
+  font-size: 180%;
+  animation-duration: 2s;
+  animation-name: textShow;
+}
+
+#aboutDownload > article > section > p {
+  font-size: 120%;
+  color: rgb(0, 0, 0, 0);
+  animation-fill-mode: forwards;
+  animation-delay: 500ms;
+  animation-duration: 2s;
+  animation-name: textShow;
+}
+
+#aboutDownload > article > section > .animate {
+  margin-top: 2rem;
+  height: 300px;
+  position: relative;
+  visibility: hidden;
+  animation-fill-mode: forwards;
+  animation-delay: 1.5s;
+  animation-duration: 100ms;
+  animation-name: visibilityShow;
+}
+
+#aboutDownload > article > section > .animate > .animate-1 {
+  position: absolute;
+  bottom: 0;
+  left: 55vw;
+  margin-left: -100px;
+  width: 200px;
+  height: 200px;
+  background-image: url(svg/global.svg);
+  background-size: contain;
+}
+
+@keyframes animate2 {
+  from {
+    top: 5vh;
+    left: 20vw;
+  }
+
+  to {
+    top: 0vh;
+    left: 25vw;
+  }
+}
+
+#aboutDownload > article > section > .animate > .animate-2 {
+  position: absolute;
+  top: 0;
+  left: 25vw;
+  margin-left: -32px;
+  width: 64px;
+  height: 64px;
+  background-image: url(svg/satellite.svg);
+  background-size: contain;
+  animation-duration: 5s;
+  animation-name: animate2;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#aboutDownload > article > section > .animate > .animate-3 {
+  position: absolute;
+  bottom: 0;
+  left: 50vw;
+  margin-left: -128px;
+  width: 256px;
+  height: 256px;
+  background-image: url(svg/map-line.svg);
+  background-size: contain;
+}
+
+@keyframes animate4 {
+  from {
+    top: 30px;
+  }
+
+  to {
+    top: 50px;
+  }
+}
+
+#aboutDownload > article > section > .animate > .animate-4 {
+  position: absolute;
+  top: 30px;
+  left: 50vw;
+  margin-left: -32px;
+  width: 64px;
+  height: 64px;
+  background-image: url(svg/map-point.svg);
+  background-size: contain;
+  animation-duration: 2s;
+  animation-name: animate4;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes mapTypeChange {
+  0% {
+    background-image: url(png/satellite.png);
+  }
+  33% {
+    background-image: url(png/terrain.png);
+  }
+  66% {
+    background-image: url(png/street.png);
+  }
+}
+
+#aboutDownload > article > section > .animate > .animate-5 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url(png/satellite.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  animation-duration: 9s;
+  animation-name: mapTypeChange;
+  animation-iteration-count: infinite;
+}
+
+#aboutDownload > article > section > .line {
+  margin-top: 3rem;
+  border-top: 1px solid #eeeeee;
+}
+
+#aboutDownload > article > section:last-child > .line {
+  display: none;
+}
+
+#aboutDownload > footer {
+  padding: 2rem 1rem;
+  background-color: #f8f9fa;
+}
+
 /* 横屏 */
 @media (min-width: 1024px), screen and (orientation: landscape) {
   #home #description {
     max-width: 60vw;
+  }
+
+  @keyframes animate2 {
+    from {
+      top: 5vh;
+      left: 40vw;
+    }
+  
+    to {
+      top: 0vh;
+      left: 45vw;
+    }
+  }
+  
+  #aboutDownload > article > section > .animate > .animate-2 {
+    left: 45vw;
+  }
+
+  #aboutDownload > article > section > .line {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
   }
 }

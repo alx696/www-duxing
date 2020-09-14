@@ -1,5 +1,5 @@
 const DuXing = {
-  init() {
+  initOpenlayers() {
     const map = new ol.Map({
       target: 'map',
       layers: [
@@ -256,7 +256,3 @@ const DuXing = {
     });
   }
 };
-
-window.addEventListener('DOMContentLoaded', () => {
-  DuXing.init();
-});
