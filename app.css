@@ -172,12 +172,12 @@ a {
 @keyframes animate2 {
   from {
     top: 5vh;
-    left: 20vw;
+    left: 25vw;
   }
 
   to {
     top: 0vh;
-    left: 25vw;
+    left: 30vw;
   }
 }
 
